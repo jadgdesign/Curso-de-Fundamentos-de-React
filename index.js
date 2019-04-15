@@ -8,20 +8,27 @@ class Blog extends Component {
     super(props);
 
     this.state = {
-      articles: [
-        'Mi primer componenete en React',
-        'Introducción a React',
-        'Qué es React'
-      ]
+      articles: []
     }
+  }
+
+  componentDidMount() {
+    let promesa = fetch('https://jsonplaceholder.typicode.com/posts');
+
+    promesa.then(response => response.json()).then(data => {
+      this.setState({
+        articles: data
+      })
+    })
+
   }
 
   render() {
     return (
       <div>
         {
-          this.state.articles.map((title) => {
-            return <p>{ title }</p>
+          this.state.articles.map((article) => {
+            return <p>{ article.title }</p>
           })
         }
       </div>
