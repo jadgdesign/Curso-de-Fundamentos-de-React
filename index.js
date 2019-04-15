@@ -3,29 +3,62 @@ import { render } from 'react-dom';
 import Hello from './Hello';
 import './style.css';
 
-class Contador extends Component {
-
+class Formulario extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      contador: 0
-    };
+      email: '',
+      password: ''
+    }
   }
 
-  aumentar = () => { 
+  syncEmailChanges(email) {
     this.setState({
-      contador: this.state.contador + 1
+      email: email
     })
-  };
+  }
+
+  syncPasswordChanges(password) {    
+    this.setState({
+      password: password
+    })
+  }
+
+  syncChanges(value, property) {
+    let state = {};
+
+    state[property] = value;
+    this.setState(state);
+  }
+
+  submitForm = () => {
+    console.log(this.state)
+  }
 
   render() {
     return (
-      <div>
-        <p>{this.state.contador}</p>
-        <button onClick={ this.aumentar }>Aumentar</button>
-      </div>
-    );
+      <form>
+        <input 
+          // onChange={ (ev) => { this.syncChanges(ev.target.value, 'email') } }
+          onChange={ (ev) => { this.syncEmailChanges(ev.target.value) } }
+          type="email" 
+          value={this.state.email} 
+          placeholder="Email" />
+        <input 
+          // onChange={ (ev) => { this.syncChanges(ev.target.value, 'password') } }
+          onChange={ (ev) => { this.syncPasswordChanges(ev.target.value) } }
+          type="password" 
+          value={this.state.password} 
+          placeholder="******" />
+        <div>
+          <input 
+            onClick={ this.submitForm }
+            type="submit" 
+            value="Iniciar sesión" />
+        </div>
+      </form>
+    )
   }
 }
 
@@ -41,7 +74,7 @@ class App extends Component {
     let nombre = "José"
     return (
       <div>
-        <Contador />
+        <Formulario />
       </div>
     );
   }
