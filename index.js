@@ -5,7 +5,9 @@ import './style.css';
 
 
 function A(props) {
-  return <p>Hola { props.nombre }</p>;
+  //console.log(props.children)
+  //return <p>Hola { props.nombre }</p>;
+  return props.children;
 }
 
 function B(props) {
@@ -30,7 +32,9 @@ class App extends Component {
     let nombre = "José"
     return (
       <div>
-        <A nombre={nombre} />
+        <A nombre={nombre}>
+          <p>{2+3*5}</p>
+        </A>
         <B nombre={nombre}/>
       </div>
     );
